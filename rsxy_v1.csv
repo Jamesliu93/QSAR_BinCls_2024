@@ -1,0 +1,159 @@
+﻿Name,SMILES,Sens
+"1,1,2,2-tetrabromoethane",BrC(Br)C(Br)Br,0
+"1,2,4-trimethylbenzene",c(ccc(c1C)C)(c1)C,0
+"1,2-dibromoethane",BrCCBr,0
+"1,2-dichloroethylene",C(=CCl)Cl,0
+"1,2-dinitrobenzene",O=N(=O)c1ccccc1N(=O)=O,0
+"1,4-dichlorobenzene",c(ccc(c1)Cl)(c1)Cl,0
+"1,5-diisocyanatonaphthalene",C1=CC2=C(C=CC=C2N=C=O)C(=C1)N=C=O,1
+1-methyl-2-pyrrolidone,O=C1CCCN1C,0
+"2-(1h-benzotriazole-1-yl)-1,1,3,3-tetramethyluronium hexafluorophosphate",CN(C)C(=[N+](C)C)ON1C2=CC=CC=C2N=N1.F[P-](F)(F)(F)(F)F,1
+"2-(1h-benzotriazole-1-yl)-1,1,3,3-tetramethyluronium tetrafluoroborate",[B-](F)(F)(F)F.CN(C)C(=[N+](C)C)ON1C2=CC=CC=C2N=N1,1
+"2-(2,4-dichlorophenoxy)ethyl sulphate",c1cc(Cl)cc(Cl)c1OCCOS(=O)(=O)O,0
+"2,2'-dichloro-4,4'methylene dianiline",Nc(c(cc(c1)Cc(ccc(N)c2Cl)c2)Cl)c1,0
+"2,4,6-trinitrotoluene",N(=O)(=O)c(cc(N(=O)(=O))c(c1N(=O)(=O))C)c1,0
+"2,4-dichlorophenoxyacetic acid",O=C(O)COc(c(cc(c1)Cl)Cl)c1,0
+"2,4-dimethyl benzyl acetate",CC1=CC(=C(C=C1)COC(=O)C)C,0
+"2,6-dimethyl heptan-4-one",O=C(CC(C)C)CC(C)C,0
+"2,6-ditertiary-butyl-para-cresol",Oc(c(cc(c1)C)C(C)(C)C)c1C(C)(C)C,0
+"2,6-toluene diisocyanate",CC1=C(C=CC=C1N=C=O)N=C=O,1
+"2-butyl-4,4,6-trimethyl-1,3-dioxane",CCCCC1OC(CC(O1)(C)C)C,0
+2-ethylhexyl chloroformate,O=C(OCC(CCCC)CC)Cl,0
+2-hydroxy propyl acrylate,O=C(OCC(O)C)C=C,0
+2-hydroxyethyl methacrylate,CC(=C)C(=O)OCCO,1
+2-methylcyclohexanol,OC(C(CCC1)C)C1,0
+2-pyridylamine,C1=CC=NC(=C1)N,0
+2-sec-butyl phenol,Oc(c(ccc1)C(CC)C)c1,0
+2-tert-amylcyclohexyl acetate (coniferan),CCC(C)(C)C1CCCCC1OC(=O)C,0
+"3,5,5-trimethylcyclohex-2-enone",O=C(C=C(CC1(C)C)C)C1,0
+"3,6-dimethyloctan-3-yl acetate",CCC(C)(CCC(C)CC)OC(=O)C,0
+3-butyl phthalide,CCCCC1C2=CC=CC=C2C(=O)O1,0
+"4-acetyl-6-tert-butyl-1,1-dimethylindane",CC(=O)C1=CC(=CC2=C1CCC2(C)C)C(C)(C)C,0
+4-diazobenzenesulphonic acid,C1=CC(=CC=C1[N+]#N)S(=O)(=O)[O-],1
+"6,6-di-tert-butyl-4,4-thiodi-m-cresol",Oc(c(cc(Sc(c(cc(O)c1C(C)(C)C)C)c1)c2C)C(C)(C)C)c2,0
+6-amino penicillinic acid,O=C(O)[C@@H]1N2C(=O)[C@@H](N)[C@H]2SC1(C)C,1
+7-aminocephalosporanic acid,CC(=O)OCC1=C(N2C(C(C2=O)N)SC1)C(=O)O,1
+9-decenyl acetate,C=CCCCCCCCCOC(=O)C,0
+acetone,O=C(C)C,0
+acetyl ethyltetramethyltetralin (versalide),CCC1=CC2=C(C=C1C(=O)C)C(CCC2(C)C)(C)C,0
+acrylonitrile,C(#N)C=C,0
+a-ionone,C1=C(C)C(C=CC(=O)C)C(C)(C)CC1C,0
+allyl heptanoate,CCCCCCC(=O)OCC=C,0
+ammonium hexachloroplatinate,[NH4+].[NH4+].Cl[Pt-2](Cl)(Cl)(Cl)(Cl)Cl,1
+ammonium persulfate,[NH4+].[NH4+].[O-]S(=O)(=O)OOS(=O)(=O)[O-],1
+amoxicillin,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)C,1
+ampicillin,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=CC=C3)N)C(=O)O)C,1
+azodicarbonamide,C(=O)(N)N=NC(=O)N,1
+benzyl butyrate,CCCC(=O)OCC1=CC=CC=C1,0
+benzylpenicillin,CC1(C(N2C(S1)C(C2=O)NC(=O)CC3=CC=CC=C3)C(=O)O)C,1
+black gr reactive dye (bk-5),O=S(=O)(c1c(N=Nc2ccc(S(CCOS(O)(=O)=O)(=O)=O)cc2)c(N)c2c(c1)C=C(S(=O)(=O)O)C(C2=O)=NNc1ccc(S(=O)(=O)CCOS(=O)(=O)O)cc1)O,1
+bornan-2-one,O=C(C(C(C1C2)(C)C)(C2)C)C1,0
+bromacil,N1C(=O)N(C(C)CC)C(=O)C(Br)=C1C,0
+butan-1-ol,OCCCC,0
+butyl isobutyrate,CCCCOC(=O)C(C)C,0
+camphene,CC1(C2CCC(C2)C1=C)C,0
+captan,O=C(N(SC(Cl)(Cl)Cl)C(=O)C1CC=CC2)C12,0
+carmine,CC1=C2C(=CC(=C1C(=O)O)O)C(=O)C3=C(C2=O)C(=C(C(=C3O)O)C4C(C(C(C(O4)CO)O)O)O)O,1
+carvyl propionate,CCC(=O)OC1CC(CC=C1C)C(=C)C,0
+cephalexin,CC1=C(N2C(C(C2=O)NC(=O)C(C3=CC=CC=C3)N)SC1)C(=O)O,1
+chloramine t,ClN([Na])S(c1ccc(cc1)C)(=O)=O,1
+chlorhexidine,N=C(NCCCCCCNC(=N)NC(=N)Nc1ccc(cc1)Cl)NC(=N)Nc1ccc(cc1)Cl,1
+chloroacetaldehyde,O=CCCl,0
+chloroacetophenone,O=C(c(cccc1)c1)CCl,0
+chlorodifluoromethane,FC(F)Cl,0
+chlorpyrifos,CCOP(=S)(OCC)Oc1nc(Cl)c(Cl)cc1Cl,0
+cis-3-hexenyl anthranilate,CCC=CCCOC(=O)C1=CC=CC=C1N,0
+cis-4-decenal,CCCCCC=CCCC=O,0
+"citronellyl nitrile (3,7-dimethyl-6-octenenitrile)",CC(CCC=C(C)C)CC#N,0
+cryofluorane,FC(F)(C(F)(F)Cl)Cl,0
+cyclohexanol,C1CCC(CC1)O,0
+cyclohexylethanol (2-cyclohexylethanol),C1CCC(CC1)CCO,0
+diallyl phthalate,O=C(OCC=C)c(c(ccc1)C(=O)OCC=C)c1,0
+dibutyl sulfide,CCCCSCCCC,0
+dichlorvos,COP(=O)(OC)OC=C(Cl)Cl,1
+dichromate,[O-][Cr](=O)(=O)O[Cr](=O)(=O)[O-].[K+].[K+],1
+dicyclohexylphthalate,O=C(OC(CCCC1)C1)c(c(ccc2)C(=O)OC(CCCC3)C3)c2,0
+diisobutylphthalate,O=C(OCC(C)C)c(c(ccc1)C(=O)OCC(C)C)c1,0
+dimethyl ethanolamine,CN(C)CCO,1
+"dimethylheptenol (2,6-dimethylhept-5-en-2-ol)",CC(=CCCC(C)(C)O)C,0
+diphenyl amine,N(c(cccc1)c1)c(cccc2)c2,0
+diphenyl ether,O(c(cccc1)c1)c(cccc2)c2,0
+"diphenylmethane-4,4-diisocyanate",C1=CC(=CC=C1CC2=CC=C(C=C2)N=C=O)N=C=O,1
+endosulfan,ClC2=C(Cl)C3(Cl)C1COS(=O)OCC1C2(Cl)C3(Cl)Cl,0
+epigallocatechin gallate,C1C(C(OC2=CC(=CC(=C21)O)O)C3=CC(=C(C(=C3)O)O)O)OC(=O)C4=CC(=C(C(=C4)O)O)O,1
+ethanol,OCC,0
+ethanolamine,C(CO)N,1
+ethyl cyanoacrylate,CCOC(=O)C(=C)C#N,1
+ethyl formate,O=COCC,0
+ethyl lactate,CCOC(=O)C(C)O,0
+ethylene glycol dimethacrylate,CC(=C)C(=O)OCCOC(=O)C(=C)C,1
+ethylenediamine,C(CN)N,1
+eugenyl phenylacetate,COC1=C(C=CC(=C1)CC=C)OC(=O)CC2=CC=CC=C2,0
+fenthion,CC1=C(C=CC(=C1)OP(=S)(OC)OC)SC,1
+formaldehyde,C=O,1
+"fructone (ethyl 2-(2-methyl-1,3-dioxolan-2-yl)acetate)",CCOC(=O)CC1(OCCO1)C,0
+geranyl benzoate,CC(=CCCC(=CCOC(=O)C1=CC=CC=C1)C)C,0
+glutaraldehyde,C(CC=O)CC=O,1
+glycyl compound,CC(=O)OCC1=CC(=CC=C1OC(C)=O)C(=O)CN(CC1=CC=CC=C1)C(C)(C)C,1
+heptan-2-one,O=C(CCCCC)C,0
+heptyl butyrate,CCCCCCCOC(=O)CCC,0
+hexachloroplatinate,Cl[Pt-2](Cl)(Cl)(Cl)(Cl)Cl.[K+].[K+],1
+hexachloroplatinic acid,[H+].[H+].Cl[Pt-2](Cl)(Cl)(Cl)(Cl)Cl,1
+hexahydrophthalic anhydride,C1CCC2C(C1)C(=O)OC2=O,1
+hexamethylene diisocyanate,C(CCCN=C=O)CCN=C=O,1
+hexan-2-one,CCCCC(=O)C,0
+hexane,CCCCCC,0
+hexanol,CCCCCCO,0
+hexyl tiglate,CCCCCCOC(=O)C(=CC)C,0
+isoamyl butyrate,CCCC(=O)OCCC(C)C,0
+"isocineole (1,4-cineole)",CC(C)C12CCC(O1)(CC2)C,0
+isophorone diisocyanate,CC1(CC(CC(C1)(C)CN=C=O)N=C=O)C,1
+lactic acid,CC(C(=O)O)O,0
+lactoscatone,CC1(CCCC23C1CC(CC2)(C(=O)O3)C)C,0
+malathion,CCOC(=O)CC(SP(=S)(OC)OC)C(=O)OCC,0
+maleic anhydride,C1=CC(=O)OC1=O,1
+menthol,CC1CCC(C(C1)O)C(C)C,1
+methyl 2-cyanoacrylate,COC(=O)C(=C)C#N,1
+methyl dopa,CC(CC1=CC(=C(C=C1)O)O)(C(=O)O)N,1
+methyl methacrylate,CC(=C)C(=O)OC,1
+methyl salicylate,COC(=O)C1=CC=CC=C1O,0
+methyl tiglate,CC=C(C)C(=O)OC,0
+methyltetrahydrophthalic anhydride,CC1C=CCC2C1C(=O)OC2=O,1
+"musk moskene (1,1,3,3,5-pentamethyl-4,6-dinitroindan)",CC1=C(C=C2C(=C1[N+](=O)[O-])C(CC2(C)C)(C)C)[N+](=O)[O-],0
+musk xylol,CC1=C(C(=C(C(=C1[N+](=O)[O-])C(C)(C)C)[N+](=O)[O-])C)[N+](=O)[O-],0
+nicotine,n(cccc1C(N(CC2)C)C2)c1,0
+n-methyl aniline,N(c(cccc1)c1)C,0
+nn-dimethylethylamine,N(CC)(C)C,0
+oxalic acid,O=C(O)C(=O)O,0
+para-toluenesulphonyl chloride,O=S(=O)(c(ccc(c1)C)c1)Cl,0
+phenylethyl acetate,CC(=O)OCCC1=CC=CC=C1,0
+phenylglycine acid chloride,C1=CC=C(C=C1)NCC(=O)Cl,1
+phorate,CCOP(=S)(OCC)SCSCC,0
+phthalic anhydride,C1=CC=C2C(=C1)C(=O)OC2=O,1
+picloram,C1(=C(C(=NC(=C1Cl)Cl)C(=O)O)Cl)N,0
+picric acid,N(=O)(=O)c(cc(N(=O)(=O))c(O)c1N(=O)(=O))c1,0
+piperacillin,CCN1CCN(C(=O)C1=O)C(=O)NC(C2=CC=CC=C2)C(=O)NC3C4N(C3=O)C(C(S4)(C)C)C(=O)O,1
+piperazine,C1CNCCN1,1
+p-isopropylcyclohexanol,CC(C)C1CCC(CC1)O,0
+plicatic acid,COC1=CC(=CC(=C1O)O)C2C3=CC(=C(C=C3CC(C2(C(=O)O)O)(CO)O)OC)O,1
+propoxur,CNC(=O)Oc1ccccc1OC(C)C,0
+pyrocatechol,Oc(c(O)ccc1)c1,0
+rhodinyl formate,CC(CCC=C(C)C)CCOC=O,0
+rotenone,COc5cc4OCC3Oc2c1CC(Oc1ccc2C(=O)C3c4cc5OC)C(C)=C,0
+salicylic acid,C1=CC=C(C(=C1)C(=O)O)O,0
+sucrose,O(C(C(O)C(O)C1O)CO)C1OC(OC(C2O)CO)(C2O)CO,0
+tetrachloro ethylene,C(=C(Cl)Cl)(Cl)Cl,0
+tetrachloroisophthalonitrile,C(#N)C1=C(C(=C(C(=C1Cl)Cl)Cl)C#N)Cl,1
+tetrachlorophthalic anhydride,C12=C(C(=C(C(=C1Cl)Cl)Cl)Cl)C(=O)OC2=O,1
+tetrachloroplatinate(ii),Cl[Pt-2](Cl)(Cl)Cl.[K+].[K+],1
+toluene,c(cccc1)(c1)C,0
+toluene diisocyanate,CC1=C(C=C(C=C1)N=C=O)N=C=O,1
+tri-(n-butyl) phosphate,CCCCOP(=O)(OCCCC)OCCCC,0
+tri-(ortho-tolyl) phosphate,O=P(Oc(c(ccc1)C)c1)(Oc(c(ccc2)C)c2)Oc(c(ccc3)C)c3,0
+trichloronitromethane,N(=O)(=O)C(Cl)(Cl)Cl,0
+triethylene tetramine,C(CNCCNCCN)N,1
+trimellitic anhydride,C1=CC2=C(C=C1C(=O)O)C(=O)OC2=O,1
+triphenyl phosphate,O=P(Oc(cccc1)c1)(Oc(cccc2)c2)Oc(cccc3)c3,0
+tylosine (fradizine),CCC1C(C=C(C=CC(=O)C(CC(C(C(C(CC(=O)O1)O)C)OC2C(C(C(C(O2)C)OC3CC(C(C(O3)C)O)(C)O)N(C)C)O)CC=O)C)C)COC4C(C(C(C(O4)C)O)OC)OC,1
+undecenyl acetate,CC(=O)OCCCCCCCCCC=C,0
+γ-dodecalactone (4-dodecanolide),CCCCCCCCC1CCC(=O)O1,0
