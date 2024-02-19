@@ -1,15 +1,18 @@
 library(tidyverse)
 library(scales)
 library(viridis)
+library(ggpubr)
 
 met <- read.csv("RS_MULTI_MET.csv",header=TRUE,fileEncoding='UTF-8-BOM')
 met$Model <- as.factor(met$Model)
 
 prc <- read.csv("RS_MULTI_PRC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
 prc$M <- as.factor(prc$M)
+prc$M2 <- as.factor(sub("\\..*", "", prc$M))
 
 roc <- read.csv("RS_MULTI_ROC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
 roc$M <- as.factor(roc$M)
+roc$M2 <- as.factor(sub("\\..*", "", roc$M))
 
 t1 <- theme_bw()+
   theme(text=element_text(size=10,color="black"),
@@ -17,7 +20,8 @@ t1 <- theme_bw()+
         axis.title.x=element_text(size=10,color="black"),
         axis.title.y=element_text(size=10,color="black"),
         axis.text.y=element_text(size=10,color="black"),
-        axis.text.x=element_text(size=10,color="black",angle=45,vjust=0.7)
+        axis.text.x=element_text(size=10,color="black",angle=45,vjust=0.7),
+        strip.background=element_blank()
         )
 
 l1 <- list(
@@ -51,25 +55,27 @@ dev.off()
 
 l2 <- list(
   t1,
-  geom_path(aes(x=R,y=P,color=M),alpha=0.5),
-  scale_color_viridis(discrete=T),
+  theme(legend.position='none',
+        panel.grid.minor=element_blank()),
+  scale_x_continuous(breaks=c(0,0.5,1)),
+  scale_y_continuous(breaks=c(0,0.5,1)),
+  scale_color_viridis(discrete=T,end=0.9),
+  facet_wrap(M2~.,ncol=5)
+)
+l3 <- list(
+  geom_path(aes(x=R,y=P,color=M2),linewidth=1),
   xlab('Recall'),
   ylab('Precision')
 )
-l3 <- list(
-  t1,
-  geom_path(aes(x=F,y=T,color=M),alpha=0.5),
-  scale_color_viridis(discrete=T),
+l4 <- list(
+  geom_path(aes(x=F,y=T,color=M2),linewidth=1),
   xlab('False Positive Rate'),
   ylab('True Positive Rate')
 )
 
-p3 <- ggplot(prc)+l2
-p4 <- ggplot(roc)+l3
+p3 <- ggplot(prc)+l2+l3
+p4 <- ggplot(roc)+l2+l4
 
-tiff("RS_PRC.tiff",height=4,width=6,units='in',res=300,compression="lzw")
-p3
-dev.off()
-tiff("RS_ROC.tiff",height=4,width=6,units='in',res=300,compression="lzw")
-p4
+tiff("RS_CURVES.tiff",height=4,width=6.5,units='in',res=300,compression="lzw")
+ggarrange(p3,p4,nrow=2,labels=c("A","B"))
 dev.off()
