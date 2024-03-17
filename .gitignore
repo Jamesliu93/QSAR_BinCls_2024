@@ -1,3 +1,4 @@
 # Ignore all .txt files
 *.txt
 old/
+temp_out/
