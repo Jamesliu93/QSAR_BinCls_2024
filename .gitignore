@@ -2,3 +2,5 @@
 *.txt
 old/
 temp_out/
+lightning_logs/
+.ipynb_checkpoints/
