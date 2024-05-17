@@ -10,10 +10,14 @@ met <- read.csv("RS_MULTI_MET.csv",header=TRUE,fileEncoding='UTF-8-BOM')
 met$Model <- as.factor(met$Model)
 
 prc <- read.csv("RS_MULTI_PRC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
+prc.mlp <- read.csv("RS_MLP_PRC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
+prc <- rbind(prc, prc.mlp)
 prc$M <- as.factor(prc$M)
 prc$M2 <- as.factor(sub("\\..*", "", prc$M))
 
 roc <- read.csv("RS_MULTI_ROC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
+roc.mlp <- read.csv("RS_MLP_ROC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
+roc <- rbind(roc, roc.mlp)
 roc$M <- as.factor(roc$M)
 roc$M2 <- as.factor(sub("\\..*", "", roc$M))
 
@@ -65,17 +69,17 @@ l1 <- list(
 
 p1 <- ggplot(met,aes(fill=Model,x=Recall,y=Precision))+l1+
   scale_x_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
-                     limits=c(0.3,0.8),breaks=c(0.3,0.4,0.5,0.6,0.7,0.8))+
+                     limits=c(0.2,1),breaks=c(0.2,0.4,0.6,0.8,1))+
   scale_y_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
-                     limits=c(0.5,1),breaks=c(0.5,0.6,0.7,0.8,0.9,1))+
+                     limits=c(0.6,1),breaks=c(0.6,0.7,0.8,0.9,1))+
   xlab('Recall')+ylab('Precision')
   
 
 p2 <- ggplot(met,aes(fill=Model,x=Accuracy,y=F1_Score))+l1+
   scale_x_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
-                     limits=c(0.5,1),breaks=c(0.5,0.6,0.7,0.8,0.9,1))+
+                     limits=c(0.6,1),breaks=c(0.6,0.7,0.8,0.9,1))+
   scale_y_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
-                     limits=c(0.4,0.9),breaks=c(0.4,0.5,0.6,0.7,0.8,0.9))+
+                     limits=c(0.4,1),breaks=c(0.4,0.6,0.8,1))+
   xlab('Accuracy')+ylab('F1 Score')
 
 tiff("RS_REC-PRE.tiff",height=2,width=3.25,units='in',res=300,compression="lzw")
@@ -109,7 +113,7 @@ l3 <- list(
   geom_path(aes(x=R,y=P,color=M2,group=M),linewidth=1),
   xlab('Recall'),
   ylab('Precision'),
-  geom_text(aes(label=AUC,color=M2),x=0.1,y=0.45,size=5,hjust=0)
+  geom_text(aes(label=AUC,color=M2),x=0.5,y=0.15,size=5,hjust=0)
 )
 l4 <- list(
   geom_line(data=rcl1,aes(x=x,y=y),lty=2,linewidth=0.5,color='black'),
@@ -126,14 +130,14 @@ tiff("RS_CURVES.tiff",height=4,width=6.5,units='in',res=300,compression="lzw")
 ggarrange(p3,p4,nrow=2,labels=c("A","B"))
 dev.off()
 
-# Plots focusing on ANNs
+# Plots focusing on mlps
 
-ann.met <- met[which(met$Model=='ANN'),-c(1,4,9,10)]
-ann.met$Param_1 <- as.factor(ann.met$Param_1)
-ann.met$Param_2 <- as.factor(ann.met$Param_2)
-ann.met$Data <- as.factor(ann.met$Data)
-colnames(ann.met) <- c('Epochs','Dropout','acc','pre','rec','f1s','Input')
-levels(ann.met$Input) <- c('Reduced','Filtered/Scaled')
+mlp.met <- met[which(met$Model=='MLP'),-c(1,4,9,10)]
+mlp.met$Param_1 <- as.factor(mlp.met$Param_1)
+mlp.met$Param_2 <- as.factor(mlp.met$Param_2)
+mlp.met$Data <- as.factor(mlp.met$Data)
+colnames(mlp.met) <- c('Epochs','Dropout','acc','pre','rec','f1s','Input')
+levels(mlp.met$Input) <- c('Reduced','Filtered/Scaled')
 
 l5 <- list(
   geom_point(aes(fill=Epochs,shape=Dropout,alpha=Input),
@@ -143,13 +147,13 @@ l5 <- list(
   guides(fill=guide_legend(override.aes=list(shape=21)))
 )
 
-p5 <- ggplot(ann.met,aes(x=acc,y=f1s))+t1+l5+
+p5 <- ggplot(mlp.met,aes(x=acc,y=f1s))+t1+l5+
   xlab('Accuracy')+ylab('F1 Score')+
   scale_x_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
                      limits=c(0.675,0.875),breaks=c(0.7,0.8))+
   scale_y_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
                      limits=c(0.2,0.85),breaks=c(0.2,0.4,0.6,0.8))
 
-tiff("ANN_EX.tiff",height=4,width=6,units='in',res=300,compression="lzw")
+tiff("MLP_EX.tiff",height=4,width=6,units='in',res=300,compression="lzw")
 p5
 dev.off()
