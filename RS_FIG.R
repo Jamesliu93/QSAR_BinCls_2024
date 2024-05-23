@@ -3,11 +3,13 @@ library(MESS)
 library(scales)
 library(viridis)
 library(ggpubr)
+library(ggsignif)
 
 # Read in metrics, ROC, PRC
 
 met <- read.csv("RS_MULTI_MET.csv",header=TRUE,fileEncoding='UTF-8-BOM')
 met$Model <- as.factor(met$Model)
+met$Data <- as.factor(met$Data)
 
 prc <- read.csv("RS_MULTI_PRC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
 prc.mlp <- read.csv("RS_MLP_PRC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
@@ -130,30 +132,56 @@ tiff("RS_CURVES.tiff",height=4,width=6.5,units='in',res=300,compression="lzw")
 ggarrange(p3,p4,nrow=2,labels=c("A","B"))
 dev.off()
 
-# Plots focusing on mlps
+# Parameter comparisons
 
-mlp.met <- met[which(met$Model=='MLP'),-c(1,4,9,10)]
-mlp.met$Param_1 <- as.factor(mlp.met$Param_1)
-mlp.met$Param_2 <- as.factor(mlp.met$Param_2)
-mlp.met$Data <- as.factor(mlp.met$Data)
-colnames(mlp.met) <- c('Epochs','Dropout','acc','pre','rec','f1s','Input')
-levels(mlp.met$Input) <- c('Reduced','Filtered/Scaled')
-
+# Comparing datatypes
 l5 <- list(
-  geom_point(aes(fill=Epochs,shape=Dropout,alpha=Input),
-             color='black',stroke=1,size=5),
-  scale_shape_manual(values=c(21,22,24)),
-  scale_alpha_manual(values=c(0.5,1)),
-  guides(fill=guide_legend(override.aes=list(shape=21)))
+  t1,
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank()),
+  ylab('F1 Score'),
+  geom_violin(aes(x=Data,y=F1_Score,fill=Data),linewidth=1),
+  scale_y_continuous(limits=c(0.2,1.2),breaks=c(0.2,0.6,1.0))
 )
+p5 <- ggplot(met)+l5
 
-p5 <- ggplot(mlp.met,aes(x=acc,y=f1s))+t1+l5+
-  xlab('Accuracy')+ylab('F1 Score')+
-  scale_x_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
-                     limits=c(0.675,0.875),breaks=c(0.7,0.8))+
-  scale_y_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
-                     limits=c(0.2,0.85),breaks=c(0.2,0.4,0.6,0.8))
+# Deleted vs Imputed
+met2 <- met
+met2$Data <- fct_collapse(met2$Data, Deleted=c('S','SR','SO','SRO'),
+                          Imputed=c('IS','ISR','ISO','ISRO'))
+met2$Data <- factor(met2$Data, levels=c('Deleted','Imputed'))
+p6 <- ggplot(met2)+l5+
+  geom_signif(aes(x=Data,y=F1_Score),map_signif_level=TRUE,
+              test=t.test,test.args=list(paired=T),y_position=1.05,
+              comparisons=list(c('Deleted','Imputed')))
+t.test(met2$'F1_Score'[met2$'Data'=='Deleted'],
+       met2$'F1_Score'[met2$'Data'=='Imputed'],
+       paired=TRUE)$p.value
 
-tiff("MLP_EX.tiff",height=4,width=6,units='in',res=300,compression="lzw")
-p5
+# Imbalanced vs Balanced
+met3 <- met
+met3$Data <- fct_collapse(met3$Data, Imbalanced=c('S','SR','IS','ISR'),
+                          Balanced=c('SO','SRO','ISO','ISRO'))
+p7 <- ggplot(met3)+l5+
+  geom_signif(aes(x=Data,y=F1_Score),map_signif_level=TRUE,
+              test=t.test,test.args=list(paired=T),,y_position=1.05,
+              comparisons=list(c('Imbalanced','Balanced')))
+t.test(met3$'F1_Score'[met3$'Data'=='Imbalanced'],
+       met3$'F1_Score'[met3$'Data'=='Balanced'],
+       paired=TRUE)$p.value
+
+# Unaltered vs Reduced
+met4 <- met
+met4$Data <- fct_collapse(met4$Data, Unaltered=c('S','IS','SO','ISO'),
+                          Reduced=c('SR','SRO','ISR','ISRO'))
+p8 <- ggplot(met4)+l5+
+  geom_signif(aes(x=Data,y=F1_Score),map_signif_level=TRUE,
+              test=t.test,test.args=list(paired=T),,y_position=1.05,
+              comparisons=list(c('Unaltered','Reduced')))
+t.test(met4$'F1_Score'[met4$'Data'=='Unaltered'],
+       met4$'F1_Score'[met4$'Data'=='Reduced'],
+       paired=TRUE)$p.value
+
+tiff("RS_DT.tiff",height=4,width=3,units='in',res=300,compression="lzw")
+ggarrange(p6,p7,p8,nrow=3,labels=c("A","B","C"),align='v')
 dev.off()
