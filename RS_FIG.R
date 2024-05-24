@@ -9,17 +9,20 @@ library(ggsignif)
 
 met <- read.csv("RS_MULTI_MET.csv",header=TRUE,fileEncoding='UTF-8-BOM')
 met$Model <- as.factor(met$Model)
+met$Model <- factor(met$Model,levels=c('LR','SVM','RF','GBT','PFN','MLP'))
 met$Data <- as.factor(met$Data)
 
 prc <- read.csv("RS_MULTI_PRC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
 prc.mlp <- read.csv("RS_MLP_PRC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
 prc <- rbind(prc, prc.mlp)
 prc$M <- as.factor(prc$M)
+prc$M <- factor(prc$M,levels=c('LR','SVM','RF','GBT','PFN','MLP'))
 prc$M2 <- as.factor(sub("\\..*", "", prc$M))
 
 roc <- read.csv("RS_MULTI_ROC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
 roc.mlp <- read.csv("RS_MLP_ROC.csv",header=TRUE,fileEncoding='UTF-8-BOM')
 roc <- rbind(roc, roc.mlp)
+roc$M <- factor(roc$M,levels=c('LR','SVM','RF','GBT','PFN','MLP'))
 roc$M <- as.factor(roc$M)
 roc$M2 <- as.factor(sub("\\..*", "", roc$M))
 
@@ -66,7 +69,8 @@ t1 <- theme_bw()+
 l1 <- list(
   t1,
   geom_point(pch=21,size=3,stroke=0.7,color='black'),
-  scale_fill_viridis(discrete=T)
+  scale_fill_viridis(discrete=T),
+  guides(fill=guide_legend(ncol=2))
 )
 
 p1 <- ggplot(met,aes(fill=Model,x=Recall,y=Precision))+l1+
@@ -84,11 +88,11 @@ p2 <- ggplot(met,aes(fill=Model,x=Accuracy,y=F1_Score))+l1+
                      limits=c(0.4,1),breaks=c(0.4,0.6,0.8,1))+
   xlab('Accuracy')+ylab('F1 Score')
 
-tiff("RS_REC-PRE.tiff",height=2,width=3.25,units='in',res=300,compression="lzw")
+tiff("RS_REC-PRE.tiff",height=2,width=3.6,units='in',res=300,compression="lzw")
 p1
 dev.off()
 
-tiff("RS_ACC-F1S.tiff",height=2,width=3.25,units='in',res=300,compression="lzw")
+tiff("RS_ACC-F1S.tiff",height=2,width=3.6,units='in',res=300,compression="lzw")
 p2
 dev.off()
 
@@ -108,7 +112,7 @@ l2 <- list(
   scale_x_continuous(breaks=c(0,0.5,1)),
   scale_y_continuous(breaks=c(0,0.5,1)),
   scale_color_viridis(discrete=T,end=0.9),
-  facet_wrap(M2~.,ncol=5)
+  facet_wrap(M2~.,ncol=3)
 )
 l3 <- list(
   geom_line(data=rcl2,aes(x=x,y=y),lty=2,linewidth=0.5,color='black'),
@@ -128,7 +132,7 @@ l4 <- list(
 p3 <- ggplot(prc)+l2+l3
 p4 <- ggplot(roc)+l2+l4
 
-tiff("RS_CURVES.tiff",height=4,width=6.5,units='in',res=300,compression="lzw")
+tiff("RS_CURVES.tiff",height=6,width=4,units='in',res=300,compression="lzw")
 ggarrange(p3,p4,nrow=2,labels=c("A","B"))
 dev.off()
 
@@ -172,6 +176,7 @@ t.test(met3$'F1_Score'[met3$'Data'=='Imbalanced'],
 
 # Unaltered vs Reduced
 met4 <- met
+met4 <- droplevels(met4[!met4$Model=='PFN',])
 met4$Data <- fct_collapse(met4$Data, Unaltered=c('S','IS','SO','ISO'),
                           Reduced=c('SR','SRO','ISR','ISRO'))
 p8 <- ggplot(met4)+l5+
