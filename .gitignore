@@ -1,6 +1,6 @@
 # Ignore all .txt files
 *.txt
-old/
-temp_out/
-lightning_logs/
 .ipynb_checkpoints/
+lightning_logs/
+old/
+Utils/
