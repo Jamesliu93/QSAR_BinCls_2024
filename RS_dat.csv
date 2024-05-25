@@ -1,4 +1,4 @@
-﻿Name,SMILES,Sens
+﻿Name,SMILES,Label
 "1,1,2,2-tetrabromoethane",BrC(Br)C(Br)Br,0
 "1,2,4-trimethylbenzene",c(ccc(c1C)C)(c1)C,0
 "1,2-dibromoethane",BrCCBr,0
