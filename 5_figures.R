@@ -74,19 +74,31 @@ l1 <- list(
   guides(fill=guide_legend(ncol=2))
 )
 
+if (proj=='LSI') {
+  sc.rec <- c(0.4,1)
+  sc.pre <- c(0.5,1)
+  sc.acc <- c(0.4,1)
+  sc.f1s <- c(0.4,1)
+} else if (proj=='RS') {
+  sc.rec <- c(0.2,1)
+  sc.pre <- c(0.6,1)
+  sc.acc <- c(0.6,1)
+  sc.f1s <- c(0.4,1)
+}
+
 p1 <- ggplot(met,aes(fill=Model,x=Recall,y=Precision))+l1+
   scale_x_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
-                     limits=c(0.2,1),breaks=c(0.2,0.4,0.6,0.8,1))+
+                     limits=sc.rec,breaks=c(0.2,0.4,0.6,0.8,1))+
   scale_y_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
-                     limits=c(0.6,1),breaks=c(0.6,0.7,0.8,0.9,1))+
+                     limits=sc.pre,breaks=c(0.5,0.6,0.7,0.8,0.9,1))+
   xlab('Recall')+ylab('Precision')
   
 
 p2 <- ggplot(met,aes(fill=Model,x=Accuracy,y=F1_Score))+l1+
   scale_x_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
-                     limits=c(0.6,1),breaks=c(0.6,0.7,0.8,0.9,1))+
+                     limits=sc.acc,breaks=c(0.4,0.5,0.6,0.7,0.8,0.9,1))+
   scale_y_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
-                     limits=c(0.4,1),breaks=c(0.4,0.6,0.8,1))+
+                     limits=sc.f1s,breaks=c(0.2,0.4,0.6,0.8,1))+
   xlab('Accuracy')+ylab('F1 Score')
 
 tiff(paste('temp_out/',proj,'_REC-PRE.tiff',sep=''),height=2,width=3.6,units='in',res=300,compression="lzw")
