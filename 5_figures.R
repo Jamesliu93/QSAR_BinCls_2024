@@ -69,6 +69,7 @@ t1 <- theme_bw()+
 
 l1 <- list(
   t1,
+  theme(plot.margin=margin(10,10,10,10)),
   geom_point(pch=21,size=3,stroke=0.7,color='black'),
   scale_fill_viridis(discrete=T),
   guides(fill=guide_legend(ncol=2))
@@ -87,6 +88,7 @@ if (proj=='LSI') {
 }
 
 p1 <- ggplot(met,aes(fill=Model,x=Recall,y=Precision))+l1+
+  theme(legend.position='none')+
   scale_x_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
                      limits=sc.rec,breaks=c(0.2,0.4,0.6,0.8,1))+
   scale_y_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
@@ -101,12 +103,16 @@ p2 <- ggplot(met,aes(fill=Model,x=Accuracy,y=F1_Score))+l1+
                      limits=sc.f1s,breaks=c(0.2,0.4,0.6,0.8,1))+
   xlab('Accuracy')+ylab('F1 Score')
 
-tiff(paste('temp_out/',proj,'_REC-PRE.tiff',sep=''),height=2,width=3.6,units='in',res=300,compression="lzw")
-p1
-dev.off()
+# tiff(paste('temp_out/',proj,'_REC-PRE.tiff',sep=''),height=2,width=3.6,units='in',res=300,compression="lzw")
+# p1
+# dev.off()
+# 
+# tiff(paste('temp_out/',proj,'_ACC-F1S.tiff',sep=''),height=2,width=3.6,units='in',res=300,compression="lzw")
+# p2
+# dev.off()
 
-tiff(paste('temp_out/',proj,'_ACC-F1S.tiff',sep=''),height=2,width=3.6,units='in',res=300,compression="lzw")
-p2
+tiff(paste('temp_out/',proj,'_SCATTER.tiff',sep=''),height=2,width=6,units='in',res=300,compression="lzw")
+ggarrange(p1,p2,labels=c("A","B"),widths=c(0.6,1))
 dev.off()
 
 # Performance curves
@@ -227,4 +233,36 @@ p10 <- ggplot(met5,aes(x=Param_2,y=F1_Score,fill=Param_2))+l6+
 
 tiff(paste('temp_out/',proj,'_HP.tiff',sep=''),height=4,width=3,units='in',res=300,compression="lzw")
 ggarrange(p9,p10,nrow=2,labels=c("A","B"),align='v')
+dev.off()
+
+met6 <- met[which(met$Model=='MLP'),c(2,3,8,10)]
+met6$Param_1 <- as.factor(met6$Param_1)
+met6$Param_2 <- as.factor(met6$Param_2)
+levels(met6$Param_1) <- c('2','3')
+p11 <- ggplot(met6,aes(x=Param_1,y=F1_Score,fill=Param_1))+l6+
+  guides(fill=guide_legend(title='Depth'))+
+  geom_signif(map_signif_level=TRUE,
+              test=t.test,test.args=list(paired=T),,y_position=0.8,
+              comparisons=list(c('2','3')))
+p12 <- ggplot(met6,aes(x=Param_2,y=F1_Score,fill=Param_2))+l6+
+  guides(fill=guide_legend(title='Width'))+
+  geom_signif(map_signif_level=TRUE,
+              test=t.test,test.args=list(paired=T),,y_position=0.8,
+              comparisons=list(c('20','40')))
+
+# tiff(paste('temp_out/',proj,'_HP2.tiff',sep=''),height=4,width=3,units='in',res=300,compression="lzw")
+# ggarrange(p11,p12,nrow=2,labels=c("A","B"),align='v')
+# dev.off()
+
+# Comparing computation cost
+
+p13 <- ggplot(met,aes(fill=Model,x=Time,y=F1_Score))+l1+
+  scale_x_continuous(expand=c(0,0),labels=scales::number_format(accuracy=1),
+                     limits=c(0.1,500),breaks=c(1,10,100),trans='log10')+
+  scale_y_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
+                     limits=c(0.4,1),breaks=c(0.4,0.6,0.8,1))+
+  xlab('Time (s)')+ylab('F1 Score')
+
+tiff(paste('temp_out/',proj,'_COST.tiff',sep=''),height=3,width=4,units='in',res=300,compression="lzw")
+p13
 dev.off()
