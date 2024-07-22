@@ -67,11 +67,13 @@ t1 <- theme_bw()+
 
 # Recall-Precision and Accuracy-F1 plots
 
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 l1 <- list(
   t1,
   theme(plot.margin=margin(10,10,10,10)),
   geom_point(pch=21,size=3,stroke=0.7,color='black'),
-  scale_fill_viridis(discrete=T),
+  scale_fill_manual(values=cbPalette),
+  #scale_fill_viridis(discrete=T),
   guides(fill=guide_legend(ncol=2))
 )
 
@@ -87,8 +89,8 @@ if (proj=='LSI') {
   sc.f1s <- c(0.4,1)
 }
 
-p1 <- ggplot(met,aes(fill=Model,x=Recall,y=Precision))+l1+
-  theme(legend.position='none')+
+p1 <- ggplot(met,aes(fill=Model,x=rec_m,y=pre_m))+
+  l1+theme(legend.position='none')+
   scale_x_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
                      limits=sc.rec,breaks=c(0.2,0.4,0.6,0.8,1))+
   scale_y_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
@@ -96,7 +98,7 @@ p1 <- ggplot(met,aes(fill=Model,x=Recall,y=Precision))+l1+
   xlab('Recall')+ylab('Precision')
   
 
-p2 <- ggplot(met,aes(fill=Model,x=Accuracy,y=F1_Score))+l1+
+p2 <- ggplot(met,aes(fill=Model,x=acc_m,y=f1s_m))+l1+
   scale_x_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
                      limits=sc.acc,breaks=c(0.4,0.5,0.6,0.7,0.8,0.9,1))+
   scale_y_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
