@@ -8,7 +8,7 @@ library(ggsignif)
 # Set project
 
 proj <- 'LSI'
-proj <- 'RS'
+#proj <- 'RS'
 
 # Read in metrics, ROC, PRC
 
@@ -165,7 +165,7 @@ l5 <- list(
   theme(axis.title.x=element_blank(),
         axis.text.x=element_blank()),
   ylab('F1 Score'),
-  geom_violin(aes(x=Data,y=F1_Score,fill=Data),linewidth=1),
+  geom_violin(aes(x=Data,y=f1s_m,fill=Data),linewidth=1),
   scale_y_continuous(limits=c(0.2,1.2),breaks=c(0.2,0.6,1.0))
 )
 p5 <- ggplot(met)+l5
@@ -176,11 +176,11 @@ met2$Data <- fct_collapse(met2$Data, Deleted=c('S','SR','SO','SRO'),
                           Imputed=c('IS','ISR','ISO','ISRO'))
 met2$Data <- factor(met2$Data, levels=c('Deleted','Imputed'))
 p6 <- ggplot(met2)+l5+
-  geom_signif(aes(x=Data,y=F1_Score),map_signif_level=TRUE,
+  geom_signif(aes(x=Data,y=f1s_m),map_signif_level=TRUE,
               test=t.test,test.args=list(paired=T),y_position=1.05,
               comparisons=list(c('Deleted','Imputed')))
-t.test(met2$'F1_Score'[met2$'Data'=='Deleted'],
-       met2$'F1_Score'[met2$'Data'=='Imputed'],
+t.test(met2$'f1s_m'[met2$'Data'=='Deleted'],
+       met2$'f1s_m'[met2$'Data'=='Imputed'],
        paired=TRUE)$p.value
 
 # Imbalanced vs Balanced
@@ -188,11 +188,11 @@ met3 <- met
 met3$Data <- fct_collapse(met3$Data, Imbalanced=c('S','SR','IS','ISR'),
                           Balanced=c('SO','SRO','ISO','ISRO'))
 p7 <- ggplot(met3)+l5+
-  geom_signif(aes(x=Data,y=F1_Score),map_signif_level=TRUE,
+  geom_signif(aes(x=Data,y=f1s_m),map_signif_level=TRUE,
               test=t.test,test.args=list(paired=T),,y_position=1.05,
               comparisons=list(c('Imbalanced','Balanced')))
-t.test(met3$'F1_Score'[met3$'Data'=='Imbalanced'],
-       met3$'F1_Score'[met3$'Data'=='Balanced'],
+t.test(met3$'f1s_m'[met3$'Data'=='Imbalanced'],
+       met3$'f1s_m'[met3$'Data'=='Balanced'],
        paired=TRUE)$p.value
 
 # Unaltered vs Reduced
@@ -201,11 +201,11 @@ met4 <- droplevels(met4[!met4$Model=='PFN',])
 met4$Data <- fct_collapse(met4$Data, Unaltered=c('S','IS','SO','ISO'),
                           Reduced=c('SR','SRO','ISR','ISRO'))
 p8 <- ggplot(met4)+l5+
-  geom_signif(aes(x=Data,y=F1_Score),map_signif_level=TRUE,
+  geom_signif(aes(x=Data,y=f1s_m),map_signif_level=TRUE,
               test=t.test,test.args=list(paired=T),,y_position=1.05,
               comparisons=list(c('Unaltered','Reduced')))
-t.test(met4$'F1_Score'[met4$'Data'=='Unaltered'],
-       met4$'F1_Score'[met4$'Data'=='Reduced'],
+t.test(met4$'f1s_m'[met4$'Data'=='Unaltered'],
+       met4$'f1s_m'[met4$'Data'=='Reduced'],
        paired=TRUE)$p.value
 
 tiff(paste('temp_out/',proj,'_DT.tiff',sep=''),height=4,width=3,units='in',res=300,compression="lzw")
@@ -221,32 +221,32 @@ l6 <- list(
   geom_violin(linewidth=1),
   scale_y_continuous(limits=c(0.2,1),breaks=c(0.2,0.6,1.0))
 )
-met5 <- met[which(met$Model=='RF'),c(2,3,8,10)]
-met5$Param_1 <- as.factor(met5$Param_1)
-met5$Param_2 <- as.factor(met5$Param_2)
-met5$Param_1 <- factor(met5$Param_1,levels=c('50','100','300'))
-p9 <- ggplot(met5,aes(x=Param_1,y=F1_Score,fill=Param_1))+l6+
+met5 <- met[which(met$Model=='RF'),c(2,3,11,14)]
+met5$Par1 <- as.factor(met5$Par1)
+met5$Par2 <- as.factor(met5$Par2)
+met5$Par1 <- factor(met5$Par1,levels=c('50','100','200'))
+p9 <- ggplot(met5,aes(x=Par1,y=f1s_m,fill=Par1))+l6+
   guides(fill=guide_legend(title='# of Estimators'))
-p10 <- ggplot(met5,aes(x=Param_2,y=F1_Score,fill=Param_2))+l6+
+p10 <- ggplot(met5,aes(x=Par2,y=f1s_m,fill=Par2))+l6+
   guides(fill=guide_legend(title='Max. Depth'))+
   geom_signif(map_signif_level=TRUE,
               test=t.test,test.args=list(paired=T),,y_position=0.8,
-              comparisons=list(c('5','10')))
+              comparisons=list(c('3','6')))
 
 tiff(paste('temp_out/',proj,'_HP.tiff',sep=''),height=4,width=3,units='in',res=300,compression="lzw")
 ggarrange(p9,p10,nrow=2,labels=c("A","B"),align='v')
 dev.off()
 
 met6 <- met[which(met$Model=='MLP'),c(2,3,8,10)]
-met6$Param_1 <- as.factor(met6$Param_1)
-met6$Param_2 <- as.factor(met6$Param_2)
-levels(met6$Param_1) <- c('2','3')
-p11 <- ggplot(met6,aes(x=Param_1,y=F1_Score,fill=Param_1))+l6+
+met6$Par1 <- as.factor(met6$Par1)
+met6$Par2 <- as.factor(met6$Par2)
+levels(met6$Par1) <- c('2','3')
+p11 <- ggplot(met6,aes(x=Par1,y=f1s_m,fill=Par1))+l6+
   guides(fill=guide_legend(title='Depth'))+
   geom_signif(map_signif_level=TRUE,
               test=t.test,test.args=list(paired=T),,y_position=0.8,
               comparisons=list(c('2','3')))
-p12 <- ggplot(met6,aes(x=Param_2,y=F1_Score,fill=Param_2))+l6+
+p12 <- ggplot(met6,aes(x=Par2,y=f1s_m,fill=Par2))+l6+
   guides(fill=guide_legend(title='Width'))+
   geom_signif(map_signif_level=TRUE,
               test=t.test,test.args=list(paired=T),,y_position=0.8,
@@ -258,7 +258,7 @@ p12 <- ggplot(met6,aes(x=Param_2,y=F1_Score,fill=Param_2))+l6+
 
 # Comparing computation cost
 
-p13 <- ggplot(met,aes(fill=Model,x=Time,y=F1_Score))+l1+
+p13 <- ggplot(met,aes(fill=Model,x=Time,y=f1s_m))+l1+
   scale_x_continuous(expand=c(0,0),labels=scales::number_format(accuracy=1),
                      limits=c(0.1,500),breaks=c(1,10,100),trans='log10')+
   scale_y_continuous(expand=c(0,0),labels=scales::number_format(accuracy=0.1),
